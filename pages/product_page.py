@@ -46,10 +46,6 @@ class ProductPage(BasePage):
             "Success message is presented, but should not be"
 
     def should_be_delete_success_message(self):
-        """
-
-        :return:
-        """
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
