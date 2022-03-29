@@ -14,10 +14,6 @@ class ProductPage(BasePage):
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME)
         return product_name.text
 
-    def open_card(self):
-        card_btn = self.browser.find_element(*ProductPageLocators.CARD_BTN)
-        card_btn.click()
-
     def get_card_items(self):
         all_card_items = self.browser.find_elements(*ProductPageLocators.CARD_ITEMS)
         assert all_card_items, 'Error not elements found'
@@ -38,6 +34,7 @@ class ProductPage(BasePage):
 
     def get_item_name_in_alert(self):
         item_name_in_alert = self.browser.find_element(*ProductPageLocators.ITEM_ADDED_ALERT)
+        assert item_name_in_alert, f'error, not found! {item_name_in_alert}'
         return item_name_in_alert.text
 
     def should_not_be_success_message(self):

@@ -1,12 +1,8 @@
-import time
-from itertools import product
-
 import pytest
-
 from pages.locators import ProductPageLocators
-
 from pages.product_page import ProductPage
-
+from pages.basket_page import BasketPage
+from pages.locators import BasketPageLocators
 
 class TestProductPage:
     @pytest.mark.parametrize('link',
@@ -76,3 +72,12 @@ class TestProductPage:
         page = ProductPage(browser, link)
         page.open()
         page.should_be_login_link()
+
+    def test_guest_cant_see_product_in_basket_opened_from_product_page(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/ru/catalogue/the-shellcoders-handbook_209/'
+        page = ProductPage(browser, link)
+        page.open()
+        page.open_card()
+        basket_page = BasketPage(page.browser)
+        assert basket_page.is_basket_empty(*BasketPageLocators.BASKET_FORMSET)
+        basket_page.is_basket_empty_message()

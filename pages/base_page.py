@@ -2,10 +2,10 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import math
-from pages.locators import BasePageLocators
+from pages.locators import BasePageLocators, ProductPageLocators
 
 class BasePage:
-    def __init__(self, browser, url, timeout=10):
+    def __init__(self, browser=None, url=None, timeout=10):
         self.browser = browser
         self.url = url
         # self.browser.implicitly_wait(timeout)
@@ -69,7 +69,9 @@ class BasePage:
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK_INVALID)
         link.click()
 
-
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
+    def open_card(self):
+        card_btn = self.browser.find_element(*ProductPageLocators.CARD_BTN)
+        card_btn.click()
